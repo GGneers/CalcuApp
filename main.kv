@@ -1,0 +1,136 @@
+ScreenManager:
+    HomeScreen:
+    SecondScreen:
+
+<HomeScreen>:
+    name: "home"
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        md_bg_color: 0.95, 1, 0.95, 1  # Light greenish background
+
+        MDTopAppBar:
+            title: "Calculator"
+            size_hint_y: None  
+            height: dp(56)
+            md_bg_color: 0.0, 0.5, 0.0, 1  # Deep Green App Bar
+            specific_text_color: 1, 1, 1, 1  # White title text
+
+        Widget:
+            size_hint_y: None
+            height: dp(40)
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: dp(10)
+            padding: dp(10)
+            adaptive_height: True
+
+            MDBoxLayout:
+                orientation: 'horizontal'
+                spacing: dp(10)
+
+                MDTextField:
+                    id: x1
+                    hint_text: "For Every Amount"
+                    mode: "line"
+                    size_hint_x: 0.5
+                    text_color_normal: 0, 0.3, 0, 1  # Dark Green text
+                    line_color_focus: 0, 0.5, 0, 1  # Brighter green when focused
+
+                MDTextField:
+                    id: x2
+                    hint_text: "Add This"
+                    mode: "line"
+                    size_hint_x: 0.5
+                    text_color_normal: 0, 0.3, 0, 1
+                    line_color_focus: 0, 0.5, 0, 1
+
+        MDTextField:
+            id: amount
+            hint_text: "Enter Amount"
+            mode: "fill"
+            size_hint_x: None
+            width: dp(250)
+            size_hint_y: None
+            height: dp(50)
+            on_text: app.calculate_additional(x1.text, x2.text, self.text)
+            text_color_normal: 0, 0.3, 0, 1
+            fill_color: 0.9, 1, 0.9, 1  # Light green fill color
+
+        MDTextField:
+            id: additional
+            hint_text: "Additional"
+            mode: "fill"
+            readonly: True
+            size_hint_x: None
+            width: dp(250)
+            size_hint_y: None
+            height: dp(50)
+            text_color_normal: 0, 0.3, 0, 1
+            fill_color: 0.9, 1, 0.9, 1
+
+        MDLabel:
+            text: "Total Amount"
+            halign: "center"
+            theme_text_color: "Secondary"
+            font_style: "H6"
+            text_color: 0, 0.4, 0, 1
+
+        MDLabel:
+            id: result
+            text: "0"
+            halign: "center"
+            theme_text_color: "Primary"
+            font_style: "H4"
+            bold: True
+            text_color: 0, 0.5, 0, 1  # Darker green
+
+        MDRaisedButton:
+            text: "Copy Amount"
+            pos_hint: {"center_x": 0.5}
+            size_hint_x: 0.6
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.copy_to_clipboard()
+            md_bg_color: 0, 0.5, 0, 1  # Green button
+            text_color: 1, 1, 1, 1  # White text
+
+        Widget:  # Spacer to balance layout
+
+        MDRaisedButton:
+            text: "Go to Second Screen"
+            pos_hint: {"center_x": 0.5}
+            size_hint_x: 0.6
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = "second"
+            md_bg_color: 0.3, 0.7, 0.3, 1  # Lighter Green Button
+            text_color: 1, 1, 1, 1
+
+<SecondScreen>:
+    name: "second"
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing: dp(20)
+        padding: dp(20)
+        md_bg_color: 0.95, 1, 0.95, 1  # Light greenish background
+        
+        MDLabel:
+            text: "Second Screen"
+            halign: "center"
+            font_style: "H5"
+            text_color: 0, 0.4, 0, 1  # Medium green
+
+        MDRaisedButton:
+            text: "Back to Home"
+            pos_hint: {"center_x": 0.5}
+            size_hint_x: 0.6
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = "home"
+            md_bg_color: 0.3, 0.7, 0.3, 1  # Green button
+            text_color: 1, 1, 1, 1
